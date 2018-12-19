@@ -1,0 +1,17 @@
+#!/bin/sh
+
+INPUT_DIR=$1
+OUTPUT_DIR=$2
+STORM_HOME=$3
+STORM_BIN=$4
+STORM_CONTAINER=$5
+docker run --mount type=bind,source="$(pwd)",target="$(pwd)" -w "$(pwd)" -d -it --name $STORM_CONTAINER movesrwth/storm:travis
+docker exec -t $STORM_CONTAINER $STORM_HOME/$STORM_BIN --{{model_checker}} ./{{model_file}} --io:exportexplicit ./{{model_output}} >& runlog.txt
+docker stop $STORM_CONTAINER
+docker rm $STORM_CONTAINER
+
+
+cp ./*.txt ../$OUTPUT_DIR
+cp ./{{model_output}} ../$OUTPUT_DIR
+
+# --- EOF ---
