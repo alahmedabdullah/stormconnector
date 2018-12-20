@@ -13,7 +13,7 @@ then
     exec_start_time=`date +"%Y-%m-%d %H:%M:%S.%3N"`
     sed -i "s/EXEC_START_TIME/$exec_start_time/" ./timedata.txt
 fi 
-sh $INPUT_DIR/run.sh $INPUT_DIR $INPUT_DIR $STORM_HOME $STORM_BIN $STORM_CONTAINER
+sh $INPUT_DIR/run.sh $INPUT_DIR $OUTPUT_DIR $STORM_HOME $STORM_BIN $STORM_CONTAINER
 if [ -e timedata.txt ]
 then
     exec_end_time=`date +"%Y-%m-%d %H:%M:%S.%3N"`
